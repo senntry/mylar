@@ -1,5 +1,7 @@
 ## ![Mylar Logo](https://github.com/evilhero/mylar/blob/master/data/images/mylarlogo.png) Mylar
 
+## This is a fork so I can fix the bug that won't let me download Batman Beyond 043. See the actual repo @ [Mylar3](https://github.com/mylar3/mylar3).
+
 ## Note that feature development has stopped as we have moved to [Mylar3](https://github.com/mylar3/mylar3).
 ## This means only critical bug errors will get addressed until such time as we decide not to continue supporting this version. EOL is still to be decided.
 
