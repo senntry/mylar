@@ -319,8 +319,13 @@ class GC(object):
 
         return {'success': True}
 
-    def downloadit(self, id, link, mainlink, generated_filename, resume=None):
-        #logger.info('[%s] %s -- mainlink: %s' % (id, link, mainlink))
+    def downloadit(self, item):
+        id                 = item['id']
+        link               = item['link']
+        mainlink           = item['mainlink']
+        sanitized_filename = item['sanitized_filename']
+        resume             = item['resume']
+
         if mylar.DDL_LOCK is True:
             logger.fdebug('[DDL] Another item is currently downloading via DDL. Only one item can be downloaded at a time using DDL. Patience.')
             return
@@ -383,8 +388,9 @@ class GC(object):
                                  "filename": filename,
                                  "path":     None})
                 
-                if generated_filename is not None:
-                  filename = generated_filename
+                if sanitized_filename is not None:
+                  filename = sanitized_filename
+                  logger.fdebug('Set sanitized filename as: %s' % filename)
 
                 path = os.path.join(mylar.CONFIG.DDL_LOCATION, filename)
 

@@ -3084,14 +3084,13 @@ def ddl_downloader(queue):
             ddz = getcomics.GC()
 
             # Set a custom filename so post processing works better
-            generated_filename = None
             try:
-              generated_filename = (re.sub('[^A-Za-z0-9\s]+', '', item['series']))
-              generated_filename = generated_filename + " (" + str(item['year']) + ").cbr"
+              if item['series'] is not None and item['year'] is not None and re.compile("^[A-Z].+.+[0-9]+.*$").match(item['series']):
+                item['sanitized_filename'] = (re.sub('[^A-Za-z0-9\s]+', '', item['series'])) + " (" + str(item['year']) + ").cbr"
             except:
-              generated_filename = None
+              logger.fdebug('Failed to generate a sanitized filename for enhanced post-processing.')
 
-            ddzstat = ddz.downloadit(item['id'], item['link'], item['mainlink'], generated_filename, item['resume'])
+            ddzstat = ddz.downloadit(item)
 
             if ddzstat['success'] is True:
                 tdnow = datetime.datetime.now()
