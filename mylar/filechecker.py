@@ -892,7 +892,7 @@ class FileChecker(object):
                         finddash = -1
                         logger.fdebug('dash is in first word, not considering for determing issue number.')
 
-                    for pis in sorted(possible_issuenumbers, key=operator.itemgetter('position'), reverse=True):
+                    for pis in sorted(possible_issuenumbers, key=operator.itemgetter('position'), reverse=False):
                         a = ' '.join(split_file)
                         lenn = pis['mod_position'] + len(pis['number'])
                         if lenn == len(a) and finddash != -1:

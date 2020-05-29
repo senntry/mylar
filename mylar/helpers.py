@@ -33,6 +33,7 @@ import shutil
 import hashlib
 import gzip
 import os, errno
+import re
 from StringIO import StringIO
 from apscheduler.triggers.interval import IntervalTrigger
 
@@ -3081,7 +3082,16 @@ def ddl_downloader(queue):
             myDB.upsert('ddl_info', val, ctrlval)
 
             ddz = getcomics.GC()
-            ddzstat = ddz.downloadit(item['id'], item['link'], item['mainlink'], item['resume'])
+
+            # Set a custom filename so post processing works better
+            generated_filename = None
+            try:
+              generated_filename = (re.sub('[^A-Za-z0-9\s]+', '', item['series']))
+              generated_filename = generated_filename + " (" + str(item['year']) + ").cbr"
+            except:
+              generated_filename = None
+
+            ddzstat = ddz.downloadit(item['id'], item['link'], item['mainlink'], generated_filename, item['resume'])
 
             if ddzstat['success'] is True:
                 tdnow = datetime.datetime.now()
